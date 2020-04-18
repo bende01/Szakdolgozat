@@ -30,6 +30,7 @@ public class Map_generator : MonoBehaviour
 
         //UpdateMap(map, tilemap);
         tilemap.CompressBounds();
+        tilemap.gameObject.transform.localPosition=new Vector3(0, 0, 0);
         
 
     }
