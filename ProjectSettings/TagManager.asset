@@ -8,6 +8,7 @@ TagManager:
   - Laser
   - Range
   - Map
+  - Death
   layers:
   - Default
   - TransparentFX

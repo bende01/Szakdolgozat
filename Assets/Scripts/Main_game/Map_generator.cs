@@ -7,8 +7,15 @@ using UnityEngine.Tilemaps;
 public class Map_generator : MonoBehaviour
 {
     Tilemap tilemap;
+    public Tilemap backgroundMap;
+
+    
 
     public TileBase tile;
+    public TileBase backgroundTile;
+    public TileBase deathTile;
+    public TileBase lightTile;
+
     public int width = 100;
     private int height;
 
@@ -22,24 +29,70 @@ public class Map_generator : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
         var map = GenerateArray(width, height, true);
 
-        //map = PerlinNoise(map, 0f);
-        map = RandomWalkTopSmoothed(map,minSectionWidth,maxSectionWidth);
-        //map = RandomWalkTop(map, 123123);
+        
+        map = CreateMap(map, minSectionWidth, maxSectionWidth);
+       
 
-        RenderMap(map, tilemap, tile);
+        RenderMap(map, tilemap);
 
         //UpdateMap(map, tilemap);
+
+
+
         tilemap.CompressBounds();
-        tilemap.gameObject.transform.localPosition=new Vector3(0, 0, 0);
+        tilemap.transform.position = new Vector3(0, -(map.GetUpperBound(0) / minSectionWidth * 8 + 2), 0);
+
+        var background = map;
         
+         RenderBeckground(map);
+        backgroundMap.CompressBounds();
+        backgroundMap.transform.position = new Vector3(0, -(map.GetUpperBound(0) / minSectionWidth * 8 + 2), 0);
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void RenderBeckground(int[,] map)
     {
+        backgroundMap.ClearAllTiles();
+
+        
+        int maxY = map.GetUpperBound(0) / minSectionWidth * 8 + 2;
+        int minY = maxY;
+
+        //Loop through the width of the map
+        for (int x = 0; x < map.GetUpperBound(0); x++)
+        {
+            //Loop through the height of the map
+            for (int y = 0; y < map.GetUpperBound(1); y++)
+            {
+               
+                if (map[x,y] == 1)
+                {
+                    if (y > maxY) maxY = y;
+                    if (y < minY) minY = y;
+
+                }
+                    
+                
+
+            }
+        }
+
+        for (int x = -15; x< map.GetUpperBound(0)+15; x++)
+        {
+            for (int y = minY-15; y <= maxY+15; y++)
+            {
+                backgroundMap.SetTile(new Vector3Int(x, y, 0), backgroundTile);
+
+                if (x % 10 == 0 && y % 10 == 0)
+                {
+                    backgroundMap.SetTile(new Vector3Int(x, y, 0), lightTile);
+
+                }
+            }
+        }
 
     }
+
 
 
     public static int[,] GenerateArray(int width, int height, bool empty)  //Generates the map
@@ -62,10 +115,12 @@ public class Map_generator : MonoBehaviour
         return map;
     }
 
-    public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile)
+    public void RenderMap(int[,] map, Tilemap tilemap)
     {
         //Clear the map (ensures we dont overlap)
         tilemap.ClearAllTiles();
+
+        int deathY=0;
 
         //Loop through the width of the map
         for (int x = 0; x < map.GetUpperBound(0); x++)
@@ -76,10 +131,19 @@ public class Map_generator : MonoBehaviour
                 // 1 = tile, 0 = no tile
                 if (map[x, y] == 1)
                 {
+                    deathY = y;
                     tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                   
+                    
                 }
             }
         }
+
+        for (int x = 0; x < map.GetUpperBound(0); x++)
+        {
+            tilemap.SetTile(new Vector3Int(x, deathY, 0), deathTile);
+        }
+
     }
 
 
@@ -100,41 +164,8 @@ public class Map_generator : MonoBehaviour
         }
     }
 
-    public static int[,] RandomWalkTop(int[,] map, float seed)
-    {
-        //Seed our random
-        System.Random rand = new System.Random(seed.GetHashCode());
 
-        //Set our starting height
-        int lastHeight = UnityEngine.Random.Range(0, map.GetUpperBound(1));
-
-        //Cycle through our width
-        for (int x = 0; x < map.GetUpperBound(0); x++)
-        {
-            //Flip a coin
-            int nextMove = rand.Next(2);
-
-            //If heads, and we aren't near the bottom, minus some height
-            if (nextMove == 0 && lastHeight > 2)
-            {
-                lastHeight--;
-            }
-            //If tails, and we aren't near the top, add some height
-            else if (nextMove == 1 && lastHeight < map.GetUpperBound(1) - 2)
-            {
-                lastHeight++;
-            }
-
-            //Circle through from the lastheight to the bottom
-            for (int y = lastHeight; y >= 0; y--)
-            {
-                map[x, y] = 1;
-            }
-        }
-        //Return the map
-        return map;
-    }
-    public static int[,] RandomWalkTopSmoothed(int[,] map, int minSectionWidth, int maxSectionWidth)
+    public static int[,] CreateMap(int[,] map, int minSectionWidth, int maxSectionWidth)
     {
         //Seed random
         
@@ -157,23 +188,32 @@ public class Map_generator : MonoBehaviour
         
         int currentSectionWidth;
 
-        //Work through the array width
-        for ( x = 8; x <= map.GetUpperBound(0)-maxSectionWidth; x++)
+        x = 8;
+
+       
+        while (  x <= map.GetUpperBound(0)-maxSectionWidth)
         {
             //Determine the next move -- 0 down -- 1 up
             nextHeight = UnityEngine.Random.Range(-8,6);
 
+
+
             //Only change the height if we have used the current height more than the minimum required section width
-            if (nextHeight+y <= y+3 && nextHeight+y>=y-thickness+1)
+            if (nextHeight+y <= y+3 && nextHeight+y>=y-thickness)
             {
-                nextWidth = UnityEngine.Random.Range(1, 5);
+                nextWidth = UnityEngine.Random.Range(2, 5);
+                
                 
                 currentSectionWidth = UnityEngine.Random.Range(minSectionWidth, maxSectionWidth);
                 y = y + nextHeight;
                 x = x + nextWidth;
-                map = GenerateSection(map, x, y, currentSectionWidth, thickness);
 
-                x = x + currentSectionWidth - 1;
+                if (map[x, y] != 1)
+                {
+                    map = GenerateSection(map, x, y, currentSectionWidth, thickness);
+
+                    x = x + currentSectionWidth - 1;
+                }
                 
 
             }
@@ -184,9 +224,12 @@ public class Map_generator : MonoBehaviour
                 currentSectionWidth = UnityEngine.Random.Range(minSectionWidth, maxSectionWidth);
                 y = y + nextHeight;
                 x = x + nextWidth;
-                map = GenerateSection(map, x, y, currentSectionWidth, thickness);
+                if (map[x, y] != 1)
+                {
+                    map = GenerateSection(map, x, y, currentSectionWidth, thickness);
 
-                x = x + currentSectionWidth - 1;
+                    x = x + currentSectionWidth - 1;
+                }
             }
             else
             {
@@ -195,15 +238,23 @@ public class Map_generator : MonoBehaviour
                 currentSectionWidth = UnityEngine.Random.Range(minSectionWidth, maxSectionWidth);
                 y = y + nextHeight;
                 x = x + nextWidth;
-                map = GenerateSection(map, x, y, currentSectionWidth, thickness);
+                if (map[x, y] != 1)
+                {
+                    map = GenerateSection(map, x, y, currentSectionWidth, thickness);
 
-                x = x + currentSectionWidth - 1;
+                    x = x + currentSectionWidth - 1;
+                }
             }
-            //Increment the section width
+            
            
         }
 
-        //Return the modified map
+        for (int i =0; i < map.GetUpperBound(0); i++)
+        {
+            map[i, y - 6] = 1;
+        }
+
+        
         return map;
     }
 

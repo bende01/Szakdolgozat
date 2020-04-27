@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Death_Barrier.cs" />
     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
     <Compile Include="Assets\Scripts\Main_game\Bullet.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\MeleeBehavior.cs" />

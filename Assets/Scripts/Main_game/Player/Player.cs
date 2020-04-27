@@ -62,6 +62,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void InstantDeath()
+    {
+        Destroy(gameObject);
+    }
+
 
 
 
