@@ -8,6 +8,7 @@ public class Map_generator : MonoBehaviour
 {
     Tilemap tilemap;
     public Tilemap backgroundMap;
+    public GameObject spawner;
 
     
 
@@ -42,7 +43,7 @@ public class Map_generator : MonoBehaviour
         tilemap.CompressBounds();
         tilemap.transform.position = new Vector3(0, -(map.GetUpperBound(0) / minSectionWidth * 8 + 2), 0);
 
-        var background = map;
+        bool hastile = tilemap.HasTile(new Vector3Int(0, 0, 0));
         
          RenderBeckground(map);
         backgroundMap.CompressBounds();
@@ -165,11 +166,9 @@ public class Map_generator : MonoBehaviour
     }
 
 
-    public static int[,] CreateMap(int[,] map, int minSectionWidth, int maxSectionWidth)
+    public  int[,] CreateMap(int[,] map, int minSectionWidth, int maxSectionWidth)
     {
         //Seed random
-        
-
 
         int x,y;
         
@@ -249,7 +248,7 @@ public class Map_generator : MonoBehaviour
            
         }
 
-        for (int i =0; i < map.GetUpperBound(0); i++)
+        for (int i =0; i < map.GetUpperBound(0); i++) //for death barrier
         {
             map[i, y - 6] = 1;
         }
@@ -260,10 +259,16 @@ public class Map_generator : MonoBehaviour
 
 
 
-    public static int[,] GenerateSection(int[,] map,int x, int y, int sectionWidth, int thickness)
+    public  int[,] GenerateSection(int[,] map,int x, int y, int sectionWidth, int thickness)
     {
         for (int i = x; i < x+sectionWidth; i++)
         {
+            int chance = UnityEngine.Random.Range(0, 9);
+            if (chance == 8 && x>=8)
+            {
+                GameObject.Instantiate(spawner, new Vector3(i, y + 8-(map.GetUpperBound(0) / minSectionWidth * 8 + 2), 0), new Quaternion(0, 0, 0, 0));
+            }
+           
             for (int j = 0; j < thickness; j++)
             {
                 map[i, y - j] = 1;
