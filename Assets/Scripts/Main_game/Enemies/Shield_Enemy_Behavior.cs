@@ -12,12 +12,14 @@ public class Shield_Enemy_Behavior : MonoBehaviour
     public float knockbackForce;
     public float damage;
     public GameObject warning;
-
+    public GameObject graphics;
+    public float warningTime = 0.5f;
 
     private Rigidbody2D rb;
     private bool onCooldown = false;
     private float cooling = 0;
     private float detectedPosition;
+
 
     private void Awake()
     {
@@ -33,7 +35,7 @@ public class Shield_Enemy_Behavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         if (onCooldown)
         {
@@ -50,28 +52,36 @@ public class Shield_Enemy_Behavior : MonoBehaviour
     {
         if (Mathf.Abs(transform.position.x - player.transform.position.x) <= attackRange && Mathf.Floor(transform.position.y) == Mathf.Floor(player.transform.position.y) && !onCooldown) //in line and in attack range
         {
-            rb.AddForce(new Vector2(Mathf.Clamp(-(transform.position.x - player.transform.position.x), -1, 1) * dashSpeed, 0), ForceMode2D.Impulse);
-            onCooldown = true;
-            detectedPosition = player.transform.position.x;
+            warning.SetActive(true);
+            graphics.GetComponent<Ghosting>().enabled = true;
 
+            Invoke("DoDash",warningTime);
+
+            onCooldown = true;
+           
 
         }
+
+    }
+
+    private void DoDash()
+    {
+        detectedPosition = player.transform.position.x;
+        rb.AddForce(new Vector2(Mathf.Clamp(-(transform.position.x - player.transform.position.x), -1, 1) * dashSpeed, 0), ForceMode2D.Impulse);
+        warning.SetActive(false);
+
     }
 
     private void CooldownTimer()  
     {
         cooling += Time.deltaTime;
-        if (cooldown - cooling <= 0.5)
-        {
-            warning.SetActive(true);
-            Debug.Log("activate");
-        }
+        
         if (cooling >= cooldown)
         {
             
             onCooldown = false;
             cooling = 0;
-            warning.SetActive(false);
+            
             
 
         }
@@ -112,5 +122,6 @@ public class Shield_Enemy_Behavior : MonoBehaviour
         }
     }
 
-    
+
+
 }

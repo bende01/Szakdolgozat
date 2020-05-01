@@ -250,7 +250,7 @@ public class Map_generator : MonoBehaviour
 
         for (int i =0; i < map.GetUpperBound(0); i++) //for death barrier
         {
-            map[i, y - 6] = 1;
+            map[i, y - 10] = 1;
         }
 
         

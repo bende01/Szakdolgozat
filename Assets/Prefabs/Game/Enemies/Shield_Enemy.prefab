@@ -100,8 +100,9 @@ MonoBehaviour:
   dashSpeed: 50
   dashBackslash: 1
   knockbackForce: 100
-  damage: 20
+  damage: 0
   warning: {fileID: 6883581010491875304}
+  graphics: {fileID: 2825997723750305810}
 --- !u!114 &3656214993797154400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2825997723750305810}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dcd449328c7e284e885e3eb5e28efa1, type: 3}
   m_Name: 

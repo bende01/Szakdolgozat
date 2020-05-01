@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
     {
         int pick = Random.Range(0, enemies.Count);
         GameObject.Instantiate<GameObject>(enemies[pick],transform.position,transform.rotation);
-        
+        Destroy(gameObject);
     }
 
     // Update is called once per frame

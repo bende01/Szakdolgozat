@@ -63,12 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Bowman_Behavior.cs" />
     <Compile Include="Assets\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Main_game\Bullet.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\Ghosting.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\MeleeBehavior.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\Ranged_Behavior.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\Shield_Enemy_Behavior.cs" />
+    <Compile Include="Assets\Scripts\Main_game\Enemies\Shoot.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\SimpleEnemy.cs" />
     <Compile Include="Assets\Scripts\Main_game\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Main_game\Map\Death_Barrier.cs" />

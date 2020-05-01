@@ -19,7 +19,7 @@ public class Ghosting : MonoBehaviour
         if (currentTime >= ghostDelay)
         {
             GameObject currentGhost = Instantiate(ghost, transform.position, transform.rotation);
-            Destroy(currentGhost, 0.5f);
+            Destroy(currentGhost, 0.3f);
             currentTime = 0;
         }
         else

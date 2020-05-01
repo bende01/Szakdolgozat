@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 16
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstarPathfindingProject", "AstarPathfindingProject.csproj", "{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{2744BB6F-C669-6BD4-9538-D49AE71A6780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstarPathfindingProject", "AstarPathfindingProject.csproj", "{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.Tilemap.Extras", "Unity.2D.Tilemap.Extras.csproj", "{43CB5553-CEFC-42B5-4CF5-2AF22FF3F3D3}"
 EndProject
@@ -21,14 +21,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2744BB6F-C669-6BD4-9538-D49AE71A6780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2744BB6F-C669-6BD4-9538-D49AE71A6780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2744BB6F-C669-6BD4-9538-D49AE71A6780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2744BB6F-C669-6BD4-9538-D49AE71A6780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01BABF0-24E9-3322-598B-DDEE76E0BBEF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43CB5553-CEFC-42B5-4CF5-2AF22FF3F3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{43CB5553-CEFC-42B5-4CF5-2AF22FF3F3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43CB5553-CEFC-42B5-4CF5-2AF22FF3F3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
