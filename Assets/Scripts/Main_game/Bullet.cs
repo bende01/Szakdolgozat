@@ -7,13 +7,13 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     public float damage = 20;
-    private GameObject map;
+    private Tilemap map;
 
     public Rigidbody2D rb;
     void Start()
     {
         rb.velocity = transform.right * speed;
-        map = GameObject.Find("Tilemap");
+        map = GameObject.Find("Tilemap").GetComponent<Tilemap>();
     }
 
     private void Update()
@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
     private void OutOfBounds()
     {
-        if (gameObject.transform.position.x < -15 || gameObject.transform.position.x > map.GetComponent<Map_generator>().width)
+        if (gameObject.transform.position.x < -15 || gameObject.transform.position.x > map.size.x)
         {
 
             Destroy(gameObject);

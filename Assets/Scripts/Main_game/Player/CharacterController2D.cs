@@ -50,14 +50,14 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-  /*  private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == 8 && m_Grounded)
         {
             m_Grounded = false;
             //OnLandEvent.Invoke();
         }
-    }*/
+    }
 
 
 
@@ -134,7 +134,7 @@ public class CharacterController2D : MonoBehaviour
 		if (m_Grounded && jump)
 		{
 			// Add a vertical force to the player.
-			m_Grounded = false;
+			//m_Grounded = false;
             m_Rigidbody2D.velocity = Vector3.zero;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}

@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Bowman_Behavior.cs" />
+    <Compile Include="Assets\Map_generator_lvl2.cs" />
+    <Compile Include="Assets\Melee_enemy.cs" />
     <Compile Include="Assets\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Main_game\Bullet.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\Ghosting.cs" />
@@ -90,7 +92,6 @@
     <Compile Include="Assets\Scripts\Mini_game\UIManager.cs" />
     <None Include="Assets\Hero and Opponents\license.txt" />
     <None Include="Assets\2D Galaxy Assets\Game\Materials\Shaders\Galaxy.shader" />
-    <None Include="Assets\BayatGames\Free Platform Game Assets\Readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Unity/Önlab Game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
