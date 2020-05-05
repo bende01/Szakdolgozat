@@ -195,7 +195,7 @@ public class Map_generator_lvl2 : MonoBehaviour
             map[x, y] = 1;
         }
 
-        while (x <= map.GetUpperBound(0) - maxSectionWidth+1)
+        while (x < map.GetUpperBound(0) - maxSectionWidth-1)
         {
             //Determine the next direction: 1up,0 even,-1down
 
@@ -271,6 +271,7 @@ public class Map_generator_lvl2 : MonoBehaviour
     {
         for (int i = x; i < x + nextWidht; i++)
         {
+            Debug.Log(i + "  " + y);
             map[i, y] = 1;
             int chance = UnityEngine.Random.Range(0, 101);
             if (chance <= spawnChance && x >= 8)

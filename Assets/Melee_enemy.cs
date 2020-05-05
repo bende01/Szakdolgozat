@@ -9,6 +9,12 @@ public class Melee_enemy : MonoBehaviour
     public Animator anim;
     public Rigidbody2D rb;
     public LayerMask palyerLayer;
+    public GameObject warning;
+    public Transform sight;
+    public LayerMask filter;
+   
+
+    public Transform detecter;
     
     private Tilemap map;
 
@@ -16,10 +22,13 @@ public class Melee_enemy : MonoBehaviour
     public float patrolSpeed = 10;
     public float detectRange = 10;
     public float faceHug = 1;
+    public float cooldown=2;
 
     private GameObject player;
-    private float time=0;
-    private bool goingRight = true;
+    
+
+    private float cooling = 0;
+    private bool onCooldown = false;
     private void Awake()
     {
         player = GameObject.Find("Player");
@@ -28,35 +37,74 @@ public class Melee_enemy : MonoBehaviour
 
     private void Start()
     {
-
+        
     }
     // Update is called once per frame
     void Update()
     {
         //patrol
+        
 
-        rb.velocity = transform.right * patrolSpeed;
-        time += Time.deltaTime;
-
-        if (PlayerDetected())
+        if (onCooldown)
         {
-            Shunpo();
+            anim.SetBool("patrol", false);
+            CooldownTimer();
         }
-        else { Patrol(); }
+        else
+        {
+            if (PlayerDetected() && PlayerInSight())
+            {
+                Shunpo();
+                warning.SetActive(true);
+                Invoke("Attack", 0.75f);
+                onCooldown = true;
+            }
+            else
+            {
+                gameObject.GetComponent<TrailRenderer>().enabled = false;
+                transform.Translate(Vector2.right * patrolSpeed * Time.deltaTime);
+                anim.SetBool("patrol", true);
+                Patrol();
+            }
+        }
 
+        
+
+    }
+
+    public void Attack()
+    {
+        anim.SetTrigger("attack");
+        warning.SetActive(false);
+    }
+
+    private void CooldownTimer()
+    {
+        cooling += Time.deltaTime;
+
+        if (cooling >= cooldown)
+        {
+
+            onCooldown = false;
+            cooling = 0;
+
+
+
+        }
     }
 
     private void Shunpo() //teleport
     {
+        gameObject.GetComponent<TrailRenderer>().enabled = (true);
         if (player.transform.position.x > transform.position.x)
         {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
+            transform.eulerAngles = new Vector3(0, 180, 0);
             transform.position = player.transform.position;
-            transform.Translate(Vector3.right * faceHug);
+            transform.Translate(Vector3.left * faceHug);
         }
         else
         {
-            transform.rotation = new Quaternion(0, 180, 0, 0);
+            transform.eulerAngles = new Vector3(0, 0, 0);
             transform.position = player.transform.position;
             transform.Translate(Vector3.left * faceHug);
         }
@@ -65,38 +113,22 @@ public class Melee_enemy : MonoBehaviour
 
     private void Patrol()
     {
-        if (!map.HasTile(ClampPosition() + Vector3Int.right + Vector3Int.down * 2- Vector3Int.up * (int)map.CellToWorld(Vector3Int.zero).y) && goingRight)
+        RaycastHit2D detect = Physics2D.Raycast(detecter.position, Vector2.down,1);
+
+        if (detect.collider == null  )
         {
-            
-            patrolSpeed = -patrolSpeed;
-            goingRight = false;
-
-            Debug.Log("Jobb: "+ (ClampPosition() + Vector3Int.right + Vector3Int.down * 2 - Vector3Int.up * (int)map.CellToWorld(Vector3Int.zero).y));
-
-
-        }
-        else if (!map.HasTile(ClampPosition() + Vector3Int.left + Vector3Int.down * 2 - Vector3Int.up * (int)map.CellToWorld(Vector3Int.zero).y) && !goingRight)
-        {
-            patrolSpeed = -patrolSpeed;
-            goingRight = true;
-            Debug.Log("Bal: " + (ClampPosition() + Vector3Int.left + Vector3Int.down * 2 - Vector3Int.up * (int)map.CellToWorld(Vector3Int.zero).y));
-
+            transform.Rotate(new Vector3(0, 180, 0));
         }
 
-        if (time >= patrolDirectionTime)
+        RaycastHit2D detectSide = Physics2D.Raycast(detecter.position, Vector2.right, 1);
+
+        if (detectSide.collider != null && detectSide.collider.tag == "Map")
         {
-            patrolSpeed = -patrolSpeed;
-            time = 0;
-
-
+            transform.Rotate(new Vector3(0, 180, 0));
         }
-        
-
-
-
-
-
     }
+
+   
 
     private Vector3Int ClampPosition()
     {
@@ -124,6 +156,26 @@ public class Melee_enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectRange);
     }
 
+    private bool PlayerInSight()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(sight.position, player.transform.position-sight.position,filter);
+        Debug.DrawRay(sight.position, player.transform.position - sight.position, Color.red);
+        if (hit.collider != null) { Debug.Log("hit: "+hit.collider.tag); }
+        
+        if (hit.collider !=null && hit.collider.tag == "Player")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
-  
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(sight.position, player.transform.position);
+    }
+
 }

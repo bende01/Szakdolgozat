@@ -66,6 +66,7 @@
     <Compile Include="Assets\Bowman_Behavior.cs" />
     <Compile Include="Assets\Map_generator_lvl2.cs" />
     <Compile Include="Assets\Melee_enemy.cs" />
+    <Compile Include="Assets\melee_enemy_sword.cs" />
     <Compile Include="Assets\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Main_game\Bullet.cs" />
     <Compile Include="Assets\Scripts\Main_game\Enemies\Ghosting.cs" />
