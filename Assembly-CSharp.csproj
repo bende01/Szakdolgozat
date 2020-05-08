@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Bowman_Behavior.cs" />
+    <Compile Include="Assets\jumpy_damage.cs" />
+    <Compile Include="Assets\Jumpy_enemy.cs" />
+    <Compile Include="Assets\Jumpy_Jump.cs" />
     <Compile Include="Assets\Map_generator_lvl2.cs" />
     <Compile Include="Assets\Melee_enemy.cs" />
     <Compile Include="Assets\melee_enemy_sword.cs" />
