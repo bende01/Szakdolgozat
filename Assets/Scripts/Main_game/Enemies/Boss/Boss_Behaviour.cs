@@ -92,7 +92,7 @@ public class Boss_Behaviour : MonoBehaviour
     public void GetDamage(float dmg)
     {
         currentHealth -= dmg;
-        Debug.Log(currentHealth);
+
         if (!phase2)
         {
             Phase2();

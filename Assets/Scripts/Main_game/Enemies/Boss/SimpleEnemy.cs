@@ -32,7 +32,7 @@ public class SimpleEnemy : MonoBehaviour
             else
             {
                 health -= dmg;
-                Debug.Log(health);
+
 
             }
         }

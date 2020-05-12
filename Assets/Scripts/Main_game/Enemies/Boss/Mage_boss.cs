@@ -40,7 +40,7 @@ public class Mage_boss : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetFloat("x", mage.transform.position.x);
-        animator.SetFloat("y", mage.transform.position.y+0.5f);
+        animator.SetFloat("y", mage.transform.position.y+1f);
 
         mage.SetActive(false);
 

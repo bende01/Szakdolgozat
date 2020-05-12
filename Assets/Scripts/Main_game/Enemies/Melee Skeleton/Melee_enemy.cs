@@ -145,7 +145,6 @@ public class Melee_enemy : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(sight.position, player.transform.position-sight.position,detectRange,filter);
         Debug.DrawRay(sight.position, (player.transform.position - sight.position).normalized*detectRange, Color.red);
-        if (hit.collider != null) { Debug.Log("hit: "+hit.collider.tag); }
         
         if (hit.collider !=null && hit.collider.tag == "Player")
         {
