@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiniGame_Controll : MonoBehaviour
 {
@@ -31,6 +32,11 @@ public class MiniGame_Controll : MonoBehaviour
         if (player.Dead())
         {
             CancelInvoke("SpawnEnemy");
+        }
+        else
+        {
+           // SceneManager.LoadScene("MainMenu");
+
         }
     }
 

@@ -13,7 +13,7 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject control = GameObject.Find("GameController");
+        GameObject control = GameObject.Find("GameControllerr");
         boundary_X = control.GetComponent<MiniGame_Controll>().boundarySize_X;
         boundary_Y = control.GetComponent<MiniGame_Controll>().boundarySize_Y;
 

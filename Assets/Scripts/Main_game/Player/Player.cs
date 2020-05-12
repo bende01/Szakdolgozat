@@ -5,21 +5,29 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float health = 100;
+    private Animation death;
 
+
+    public float health;
+    public float maxHealth = 100f;
+    
     public string[] weapons;
 
-    
+    public Animator anim;
 
     int i = 0;
 
     private void Update()
     {
-        CicleWeapons();
+   //     CicleWeapons();
 
         Die();
     }
-
+    private void Start()
+    {
+       death = GameObject.Find("DeathPanel").GetComponent<Animation>();
+        health = PlayerPrefs.GetFloat("health", maxHealth);
+    }
     private void CicleWeapons()
     {
         
@@ -58,12 +66,16 @@ public class Player : MonoBehaviour
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            anim.Play("Player_dead");
+            Destroy(gameObject,1f);
+            Deathanimation();
         }
     }
 
     public void InstantDeath()
     {
+        Deathanimation();
+        health = 0;
         Destroy(gameObject);
     }
 
@@ -73,5 +85,13 @@ public class Player : MonoBehaviour
     public void GetDamage(float dmg)
     {
         health -= dmg;
+        anim.SetTrigger("getHit");
+        PlayerPrefs.SetFloat("health", health);
     }
+
+    void Deathanimation()
+    {
+            death.Play();
+    }
+
 }

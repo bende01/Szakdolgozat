@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,12 +8,17 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController2D controller;
     public Animator player_animator;
     public float movementSpeed = 5f;
+    public float dodgeDistance = 2f;
+    public float dodgeCd = 2f;
 
+    float cd=0;
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+
+    bool dodgeOnCd=false;
     Rigidbody2D rb;
-    PlayerControls control;
+    public PlayerControls control;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,6 +32,16 @@ public class PlayerMovement : MonoBehaviour
     {
         Moving();
 
+        if (dodgeOnCd)
+        {
+            cd += Time.deltaTime;
+
+            if (cd > dodgeCd)
+            {
+                dodgeOnCd = false;
+            }
+        }
+
     }
 
     private void Moving()
@@ -36,22 +52,36 @@ public class PlayerMovement : MonoBehaviour
 
         player_animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        
 
-        if (Input.GetButtonDown("Jump") || control.PlayerMoment.Jump.ReadValue<float>()>0 )
+        if (Input.GetKeyDown(KeyCode.Space) || control.PlayerMoment.Jump.triggered)
         {
             jump = true;
             player_animator.SetBool("isJumping", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || control.PlayerMoment.Crouch.ReadValue<float>() > 0.6f)
         {
             crouch = true;
         }
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyUp(KeyCode.S) || control.PlayerMoment.Crouch.ReadValue<float>() < 0.5 && control.PlayerMoment.Crouch.ReadValue<float>() !=0)
         {
             crouch = false;
         }
+
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || control.PlayerMoment.Dodge.ReadValue<float>() > 0) && !dodgeOnCd)
+        {
+            Dodge();
+            dodgeOnCd = true;
+            cd = 0;
+        }
+
+
+
+    }
+
+    private void Dodge()
+    {
+        gameObject.transform.position+=(transform.right * dodgeDistance);
     }
 
     private void FixedUpdate() //for physics system

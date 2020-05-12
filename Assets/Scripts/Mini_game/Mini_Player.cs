@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Mini_Player : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class Mini_Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject control = GameObject.Find("GameController");
+        GameObject control = GameObject.Find("GameControllerr");
         boundary_X = control.GetComponent<MiniGame_Controll>().boundarySize_X;
         boundary_Y = control.GetComponent<MiniGame_Controll>().boundarySize_Y;
         transform.position = new Vector3(0, -3, 0);  //Starter position
@@ -111,7 +112,9 @@ public class Mini_Player : MonoBehaviour
 
         if (_health <= 0)
         {
+           
             Destroy(this.gameObject);
+            SceneManager.LoadScene("MainMenu");
         }
     }
      public bool Dead()
@@ -119,6 +122,7 @@ public class Mini_Player : MonoBehaviour
         if (_health <= 0)
         {
             return true;
+            
         }
         else
         {

@@ -8,11 +8,21 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     public Transform firePoint;
     public GameObject bulletPrefab;
-    bool canShoot = true;
-    // Update is called once per frame
+    public float cooldown= 6f;
+
+    private float cooling=0;
+    private bool onCooldown = false;
+    private PlayerControls controller;
+
+    private void Start()
+    {
+        controller = gameObject.GetComponent<PlayerMovement>().control;
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C)&&canShoot)
+        CooldownTimer();
+
+        if ((Input.GetKeyDown(KeyCode.C) || controller.PlayerMoment.Shoot.ReadValue<float>() > 0 )&& !onCooldown)
         {
             Shoot();
         }
@@ -20,12 +30,23 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+        onCooldown = true;
         Instantiate(bulletPrefab, firePoint.position,firePoint.rotation);
     }
 
-    public void CanShoot(bool can)
+    private void CooldownTimer()
     {
-        canShoot = !can;
+        cooling += Time.deltaTime;
+
+        if (cooling >= cooldown)
+        {
+
+            onCooldown = false;
+            cooling = 0;
+
+
+
+        }
     }
 
 }

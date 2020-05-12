@@ -9,6 +9,7 @@ TagManager:
   - Range
   - Map
   - Death
+  - FireBall
   layers:
   - Default
   - TransparentFX

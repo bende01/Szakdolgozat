@@ -10,8 +10,8 @@ public class Map_generator : MonoBehaviour
     public Tilemap backgroundMap;
     public GameObject spawner;
 
-    
 
+    public TileBase endTile;
     public TileBase tile;
     public TileBase backgroundTile;
     public TileBase deathTile;
@@ -93,6 +93,11 @@ public class Map_generator : MonoBehaviour
             }
         }
 
+        for (int x = -15; x < map.GetUpperBound(0) + 15; x++)
+        {
+            tilemap.SetTile(new Vector3Int(x, minY - 15, 0), deathTile);
+        }
+
     }
 
 
@@ -122,7 +127,6 @@ public class Map_generator : MonoBehaviour
         //Clear the map (ensures we dont overlap)
         tilemap.ClearAllTiles();
 
-        int deathY=0;
 
         //Loop through the width of the map
         for (int x = 0; x < map.GetUpperBound(0); x++)
@@ -133,18 +137,34 @@ public class Map_generator : MonoBehaviour
                 // 1 = tile, 0 = no tile
                 if (map[x, y] == 1)
                 {
-                    deathY = y;
                     tilemap.SetTile(new Vector3Int(x, y, 0), tile);
                    
                     
                 }
+
+                //Debug.Log(x + " " + y);
             }
         }
 
-        for (int x = 0; x < map.GetUpperBound(0); x++)
+        int i = map.GetUpperBound(0) - 1;
+        int j = map.GetUpperBound(1) - 1;
+        while (map[i,j] != 1)
         {
-            tilemap.SetTile(new Vector3Int(x, deathY, 0), deathTile);
+            i--;
+            j = map.GetUpperBound(1) - 1;
+            
+            while (map[i,j] != 1 && j>0)
+            {
+                j--;
+               // Debug.Log(i + " " + j);
+            }
+            
         }
+        tilemap.SetTile(new Vector3Int(i-1, j+2, 0), endTile); 
+        /*tilemap.SetTile(new Vector3Int(i-1, j+1, 0), endTile);
+        tilemap.SetTile(new Vector3Int(i, j+2, 0), endTile);
+        tilemap.SetTile(new Vector3Int(i-1, j+2, 0), endTile);*/
+
 
     }
 
@@ -251,10 +271,7 @@ public class Map_generator : MonoBehaviour
            
         }
 
-        for (int i =0; i < map.GetUpperBound(0); i++) //for death barrier
-        {
-            map[i, minY - 6] = 1;
-        }
+       
 
         
         return map;
