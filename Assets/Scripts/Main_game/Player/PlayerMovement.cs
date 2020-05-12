@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
             crouch = false;
         }
 
-        if ((Input.GetKeyDown(KeyCode.LeftShift) || control.PlayerMoment.Dodge.ReadValue<float>() > 0) && !dodgeOnCd)
+        if ((Input.GetKeyDown(KeyCode.E) || control.PlayerMoment.Dodge.ReadValue<float>() > 0) && !dodgeOnCd)
         {
             Dodge();
             dodgeOnCd = true;
@@ -81,7 +81,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dodge()
     {
-        gameObject.transform.position+=(transform.right * dodgeDistance);
+        gameObject.GetComponent<Ghosting>().enabled = true;
+        gameObject.GetComponent<Player>().invulnerable = true;
+        rb.AddForce(transform.right * dodgeDistance,ForceMode2D.Impulse);
+        Invoke("DisableGhosting", 0.27f);
     }
 
     private void FixedUpdate() //for physics system
@@ -108,6 +111,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         control.PlayerMoment.Enable();
+    }
+
+    private void DisableGhosting()
+    {
+        gameObject.GetComponent<Player>().invulnerable = false;
+        gameObject.GetComponent<Ghosting>().enabled = false;
+
     }
 
 }

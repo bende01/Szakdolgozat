@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 5889395728017396295}
   - component: {fileID: 5889395728017396292}
   - component: {fileID: 5889395728017396293}
+  - component: {fileID: 7543132447407854879}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -383,7 +384,7 @@ MonoBehaviour:
   controller: {fileID: 5889395728017396288}
   player_animator: {fileID: 5889395728017396303}
   movementSpeed: 30
-  dodgeDistance: 3
+  dodgeDistance: 28
   dodgeCd: 1
 --- !u!58 &5889395728017396294
 CircleCollider2D:
@@ -417,6 +418,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 259702529113940799, guid: 5aea7ad0e7663a0438c2a596ec7616c2,
     type: 3}
   cooldown: 10
+  cooldownImage: {fileID: 0}
 --- !u!114 &5889395728017396292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,6 +452,21 @@ MonoBehaviour:
   - Bullet
   - Laser
   anim: {fileID: 5889395728017396303}
+  invulnerable: 0
+--- !u!114 &7543132447407854879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5889395728017396302}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dcd449328c7e284e885e3eb5e28efa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostDelay: 0.01
+  ghost: {fileID: 700410152304507516, guid: 6551d751c8486f147a25487ac116c503, type: 3}
 --- !u!1 &5889395728853217868
 GameObject:
   m_ObjectHideFlags: 0

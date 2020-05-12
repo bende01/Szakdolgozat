@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -13,16 +14,24 @@ public class Weapon : MonoBehaviour
     private float cooling=0;
     private bool onCooldown = false;
     private PlayerControls controller;
+    public Image cooldownImage;
 
     private void Start()
     {
         controller = gameObject.GetComponent<PlayerMovement>().control;
+        cooling = cooldown;
+        
     }
     void Update()
     {
-        CooldownTimer();
+        if (onCooldown) 
+        { 
+            CooldownTimer();
+        }
 
-        if ((Input.GetKeyDown(KeyCode.C) || controller.PlayerMoment.Shoot.ReadValue<float>() > 0 )&& !onCooldown)
+        cooldownImage.fillAmount = cooling / cooldown;
+
+        if ((Input.GetKeyDown(KeyCode.K) || controller.PlayerMoment.Shoot.ReadValue<float>() > 0 )&& !onCooldown)
         {
             Shoot();
         }
@@ -30,7 +39,9 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+
         onCooldown = true;
+        cooling = 0;
         Instantiate(bulletPrefab, firePoint.position,firePoint.rotation);
     }
 
@@ -42,7 +53,6 @@ public class Weapon : MonoBehaviour
         {
 
             onCooldown = false;
-            cooling = 0;
 
 
 

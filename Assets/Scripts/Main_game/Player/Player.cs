@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
 
     int i = 0;
 
+    public bool invulnerable = false;
+
     private void Update()
     {
    //     CicleWeapons();
@@ -84,6 +86,10 @@ public class Player : MonoBehaviour
 
     public void GetDamage(float dmg)
     {
+        if (invulnerable)
+        {
+            return;
+        }
         health -= dmg;
         anim.SetTrigger("getHit");
         PlayerPrefs.SetFloat("health", health);

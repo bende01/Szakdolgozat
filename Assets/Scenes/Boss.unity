@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -329,6 +329,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2149ac74e0d47d4eb0b95508671680c, type: 3}
+--- !u!114 &75082295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8515614553287042356, guid: a2149ac74e0d47d4eb0b95508671680c,
+    type: 3}
+  m_PrefabInstance: {fileID: 75082294}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &144551605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10655,6 +10667,11 @@ PrefabInstance:
       propertyPath: cooldown
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1648832796661401112, guid: e86e552206e18d9458dee69c1117e71f,
+        type: 3}
+      propertyPath: detectRange
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 6159319660943930873, guid: e86e552206e18d9458dee69c1117e71f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11052,7 +11069,7 @@ PrefabInstance:
     - target: {fileID: 4985558381316002317, guid: 8785cda1ae959a448a789388db013d84,
         type: 3}
       propertyPath: attackRange
-      value: 14
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8785cda1ae959a448a789388db013d84, type: 3}
@@ -11072,12 +11089,17 @@ PrefabInstance:
     - target: {fileID: 1831820576799008408, guid: dae11fd8eea26464dbe709c538b549df,
         type: 3}
       propertyPath: attackRange
-      value: 14
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1831820576799008408, guid: dae11fd8eea26464dbe709c538b549df,
         type: 3}
       propertyPath: cooldown
       value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831820576799008408, guid: dae11fd8eea26464dbe709c538b549df,
+        type: 3}
+      propertyPath: detectRange
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4572854893499470770, guid: dae11fd8eea26464dbe709c538b549df,
         type: 3}
@@ -11229,6 +11251,11 @@ PrefabInstance:
       propertyPath: cooldown
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2825997723059969539, guid: 03d6db23a4e0b3e4caf09143d2ed50c5,
+        type: 3}
+      propertyPath: attackRange
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2825997723059969543, guid: 03d6db23a4e0b3e4caf09143d2ed50c5,
         type: 3}
       propertyPath: m_Name
@@ -11328,6 +11355,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5889395728017396295, guid: 5b9f5c35224a82c4c9ecbf32f2c4e85d,
+        type: 3}
+      propertyPath: cooldownImage
+      value: 
+      objectReference: {fileID: 75082295}
     - target: {fileID: 5889395728017396301, guid: 5b9f5c35224a82c4c9ecbf32f2c4e85d,
         type: 3}
       propertyPath: m_LocalPosition.x

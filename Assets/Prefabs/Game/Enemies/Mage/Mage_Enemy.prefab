@@ -283,7 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 12
   meleeRange: 1
-  cooldown: 3
+  cooldown: 6
   anim: {fileID: 1831820576799008404}
   warning: {fileID: 5171991430352212571}
   detectRange: 12

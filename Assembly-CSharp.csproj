@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\Mini_game\MiniGame_Controll.cs" />
     <Compile Include="Assets\Scripts\Mini_game\PowerUp.cs" />
     <Compile Include="Assets\Scripts\Mini_game\UIManager.cs" />
+    <Compile Include="Assets\Shooting_cooldown.cs" />
     <Compile Include="Assets\Statistics.cs" />
     <Compile Include="Assets\Tank_enemy_behind.cs" />
     <Compile Include="Assets\Win.cs" />

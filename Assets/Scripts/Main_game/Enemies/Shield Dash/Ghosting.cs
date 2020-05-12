@@ -7,7 +7,7 @@ public class Ghosting : MonoBehaviour
     public float ghostDelay;
     public GameObject ghost;
 
-    private float currentTime=0;
+    private float currentTime=2;
     void Start()
     {
         
